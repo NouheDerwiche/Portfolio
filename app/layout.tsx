@@ -16,7 +16,13 @@ export const metadata: Metadata = {
   title: "Nouha Derwiche",
   description: "Développeuse Web",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+    other: {
+      rel: "icon",
+      url: "/favicon.png",
+    },
   },
 };
 

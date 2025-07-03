@@ -4,9 +4,205 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
+const CodeTraces = () => {
+  return (
+    <div className="absolute inset-0">
+      {/* API Connection Traces */}
+      <motion.div
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute inset-0"
+      >
+        <svg className="w-full h-full" viewBox="0 0 400 400">
+          {/* API Request/Response Flow */}
+          <motion.path
+            d="M50,200 C100,100 300,300 350,200"
+            stroke="rgba(59, 130, 246, 0.3)"
+            strokeWidth="2"
+            fill="none"
+            strokeDasharray="4,6"
+          />
+          <motion.circle
+            cx="50"
+            cy="200"
+            r="4"
+            fill="#3B82F6"
+            animate={{
+              cx: [50, 350, 50],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        </svg>
+      </motion.div>
+
+      {/* Code Lines */}
+      <div className="absolute inset-0">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute left-0 h-px bg-gradient-to-r from-blue-400/20 to-transparent"
+            style={{
+              top: `${(i + 1) * 10}%`,
+              width: "60%",
+            }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ 
+              scaleX: [0, 1, 1, 0],
+              opacity: [0, 0.5, 0.5, 0],
+              x: ["0%", "0%", "100%", "100%"]
+            }}
+            transition={{
+              duration: 4,
+              delay: i * 0.5,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Database Connections */}
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
+        <motion.path
+          d="M200,50 C150,150 250,250 200,350"
+          stroke="rgba(99, 102, 241, 0.2)"
+          strokeWidth="2"
+          fill="none"
+          strokeDasharray="4,8"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.circle
+          cx="200"
+          cy="50"
+          r="3"
+          fill="#6366F1"
+          animate={{
+            cy: [50, 350, 50]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+      </svg>
+
+      {/* Function Brackets */}
+      {[...Array(3)].map((_, i) => (
+        <motion.div
+          key={`bracket-${i}`}
+          className="absolute text-blue-400/20 font-mono text-xl"
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            y: [20, 0, 0, -20]
+          }}
+          transition={{
+            duration: 3,
+            delay: i * 1,
+            repeat: Infinity
+          }}
+          style={{
+            left: `${20 + i * 30}%`,
+            top: '30%'
+          }}
+        >
+          {'{'}
+          <motion.span
+            animate={{ opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 2, delay: i * 0.5, repeat: Infinity }}
+          >
+            ( )
+          </motion.span>
+          {'}'}
+        </motion.div>
+      ))}
+
+      {/* Terminal Commands */}
+      <div className="absolute bottom-20 left-10 right-10">
+        {['npm install', 'git commit', 'yarn build'].map((cmd, i) => (
+          <motion.div
+            key={`cmd-${i}`}
+            className="text-sm font-mono text-green-500/30"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{
+              opacity: [0, 1, 1, 0],
+              x: [-20, 0, 0, 20]
+            }}
+            transition={{
+              duration: 4,
+              delay: i * 1.5,
+              repeat: Infinity
+            }}
+          >
+            $ {cmd}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Network Packets */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={`packet-${i}`}
+          className="absolute w-2 h-2 bg-blue-400/30 rounded-full"
+          initial={{ scale: 0 }}
+          animate={{
+            scale: [0, 1, 1, 0],
+            x: [0, 100, 200, 300],
+            y: [0, -50, 50, 0]
+          }}
+          transition={{
+            duration: 3,
+            delay: i * 0.6,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            left: '20%',
+            top: '60%'
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export const About = () => {
   const ref = useRef(null);
+  const containerRef = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  const floatingElements = [
+    // Technologies Front-end
+    { content: "</>", delay: 0, className: "text-blue-500 font-mono" },
+    { content: "⚛️", delay: 0.2, className: "text-blue-600" }, // React
+    { content: "JS", delay: 0.4, className: "text-yellow-500 font-bold" },
+    // Technologies Back-end
+    { content: "🗄️", delay: 0.6, className: "" }, // Database
+    { content: "API", delay: 0.8, className: "text-green-500 font-mono" },
+    // Outils
+    { content: "Git", delay: 1, className: "text-orange-500 font-mono" },
+    // Design
+    { content: "CSS", delay: 1.2, className: "text-blue-400 font-mono" },
+    { content: "UI/UX", delay: 1.4, className: "text-purple-500 font-mono" },
+    // Code symbols
+    { content: "{}", delay: 1.6, className: "text-gray-600 font-mono" },
+    { content: "( )", delay: 1.8, className: "text-gray-600 font-mono" },
+    // Frameworks
+    { content: "Next", delay: 2, className: "text-black font-bold dark:text-white" },
+    { content: "Node", delay: 2.2, className: "text-green-600 font-mono" }
+  ];
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -14,175 +210,139 @@ export const About = () => {
   };
 
   return (
-    <section ref={ref} id="about" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent"></div>
+    <section 
+      ref={containerRef} 
+      id="about" 
+      className="min-h-screen py-32 relative overflow-hidden bg-gradient-to-b from-white via-blue-50 to-white"
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/30 to-blue-200/30 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(96,165,250,0.1),transparent_70%)]"></div>
+      </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">
-          À Propos de Moi
-        </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+            À Propos de Moi
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto rounded-full"></div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
           {/* Left Column - Content and Stats */}
           <motion.div
+            ref={ref}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={cardVariants}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7 }}
+            className="space-y-8"
           >
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl backdrop-blur-sm bg-opacity-50 dark:bg-opacity-50">
-              <div className="space-y-6">
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  className="text-lg text-gray-600 dark:text-gray-300"
-                >
-                  Développeuse Web avec un an d’expérience, je crée des applications web fiables et performantes. Autonome, rigoureuse et animée par la curiosité, je souhaite participer à des projets innovants tout en continuant à évoluer dans un environnement stimulant.
-                </motion.p>
-
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                  className="text-lg text-gray-600 dark:text-gray-300"
-                >
+            <div className="backdrop-blur-sm bg-white/80 rounded-2xl p-8 border border-blue-100 shadow-lg">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="space-y-6"
+              >
+                <p className="text-xl text-gray-700 leading-relaxed">
+                  Développeuse Web avec un an d'expérience, je crée des applications web fiables et performantes. Autonome, rigoureuse et animée par la curiosité, je souhaite participer à des projets innovants tout en continuant à évoluer dans un environnement stimulant.
+                </p>
+                <p className="text-xl text-gray-700 leading-relaxed">
                   Mon objectif est de créer des expériences utilisateur exceptionnelles
                   en combinant un design élégant avec des fonctionnalités robustes.
-                </motion.p>
+                </p>
+              </motion.div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 mt-8">
-                  {[
-                    { number: "1+", label: "Année d'expérience" },
-                    { number: "7+", label: "Projets Réalisés" },
-                    { number: "5+", label: "Technologies Maîtrisées" },
-                    { number: "100%", label: "Satisfaction Client" },
-                  ].map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                      transition={{ delay: 0.2 * index, duration: 0.5 }}
-                      className="text-center p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-blue-500/10"
-                    >
-                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-6 mt-12">
+                {[
+                  { number: "1+", label: "Année d'expérience" },
+                  { number: "7+", label: "Projets Réalisés" },
+                  { number: "5+", label: "Technologies Maîtrisées" },
+                  { number: "100%", label: "Satisfaction Client" },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+                    transition={{ delay: 0.2 * index, duration: 0.5 }}
+                    className="relative group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-blue-200 rounded-xl blur group-hover:blur-xl transition-all duration-300"></div>
+                    <div className="relative p-6 rounded-xl border border-blue-100 bg-white/80 backdrop-blur-sm">
+                      <div className="text-3xl font-bold text-blue-600">
                         {stat.number}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <div className="text-sm text-gray-600 mt-2">
                         {stat.label}
                       </div>
-                    </motion.div>
-                  ))}
-                </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column - Computer Trace */}
+          {/* Right Column - Development Traces */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.7 }}
-            className="relative h-full flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="relative h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-white border border-blue-100 p-8"
           >
-            <div className="w-full aspect-square relative">
-              <svg
-                viewBox="0 0 400 400"
-                className="w-full h-full stroke-current text-purple-500 dark:text-purple-400"
-                style={{ 
-                  filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.2))',
-                  strokeWidth: '2',
-                  strokeLinecap: 'round',
-                  fill: 'none'
+            {/* Character in center */}
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <motion.div
+                initial={{ scale: 0.8 }}
+                animate={{ 
+                  scale: 1,
+                  y: [0, -10, 0]
                 }}
+                transition={{
+                  y: {
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  },
+                  scale: {
+                    duration: 0.5
+                  }
+                }}
+                className="relative"
               >
-                {/* Monitor Stand */}
-                <path
-                  d="M180,300 L220,300 L230,340 L170,340 Z"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Monitor Base */}
-                <path
-                  d="M150,340 L250,340"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Monitor Frame */}
-                <path
-                  d="M100,100 L300,100 L300,280 L100,280 Z"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Screen Inner */}
-                <path
-                  d="M110,110 L290,110 L290,270 L110,270 Z"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Menu Bar */}
-                <path
-                  d="M110,110 L290,110 L290,130 L110,130 Z"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Window Controls */}
-                <circle cx="125" cy="120" r="5" className="animate-draw-infinite" />
-                <circle cx="145" cy="120" r="5" className="animate-draw-infinite" />
-                <circle cx="165" cy="120" r="5" className="animate-draw-infinite" />
-                
-                {/* Code Editor Layout */}
-                <path
-                  d="M120,140 L180,140 L180,260 L120,260"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Code Lines */}
-                <path d="M130,160 L170,160" className="animate-draw-infinite" />
-                <path d="M130,180 L160,180" className="animate-draw-infinite" />
-                <path d="M130,200 L165,200" className="animate-draw-infinite" />
-                <path d="M130,220 L155,220" className="animate-draw-infinite" />
-                
-                {/* Main Content Area */}
-                <path
-                  d="M190,140 L280,140 L280,260 L190,260"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Content Elements */}
-                <path d="M200,160 L270,160" className="animate-draw-infinite" />
-                <path d="M200,180 L260,180" className="animate-draw-infinite" />
-                <path d="M200,200 L265,200" className="animate-draw-infinite" />
-                
-                {/* Decorative Elements */}
-                <path
-                  d="M320,150 C330,150 340,160 340,170 C340,180 330,190 320,190"
-                  className="animate-draw-infinite"
-                />
-                <path
-                  d="M60,220 C70,220 80,230 80,240 C80,250 70,260 60,260"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Connection Lines */}
-                <path
-                  d="M340,170 L360,170 M350,160 L350,180"
-                  className="animate-draw-infinite"
-                />
-                <path
-                  d="M40,240 L60,240 M50,230 L50,250"
-                  className="animate-draw-infinite"
-                />
-                
-                {/* Status Bar */}
-                <path
-                  d="M110,250 L290,250"
-                  className="animate-draw-infinite"
-                />
-              </svg>
+                {/* Body */}
+                <div className="w-48 h-48 bg-pink-400 rounded-3xl relative transform rotate-45">
+                  {/* Head */}
+                  <div className="absolute -top-16 left-12 w-24 h-24 bg-[#FFD3B5] rounded-full">
+                    {/* Face */}
+                    <div className="relative">
+                      {/* Eyes - Closed */}
+                      <div className="absolute top-12 left-6 w-4 h-0.5 bg-gray-800 rounded-full"></div>
+                      <div className="absolute top-12 right-6 w-4 h-0.5 bg-gray-800 rounded-full"></div>
+                      {/* Smile */}
+                      <div className="absolute top-16 left-8 w-8 h-8 border-b-2 border-gray-800 rounded-full"></div>
+                      {/* Beard */}
+                      <div className="absolute top-14 left-4 w-16 h-12 bg-gray-800 rounded-b-full"></div>
+                    </div>
+                  </div>
+                  {/* Arms */}
+                  <div className="absolute -left-8 top-12 w-8 h-24 bg-pink-400 rounded-full"></div>
+                  <div className="absolute -right-8 top-12 w-8 h-24 bg-pink-400 rounded-full"></div>
+                  {/* Legs */}
+                  <div className="absolute -bottom-8 left-12 w-24 h-8 bg-gray-700 rounded-full"></div>
+                </div>
+              </motion.div>
             </div>
+
+            {/* Development Traces */}
+            <CodeTraces />
           </motion.div>
         </div>
       </div>

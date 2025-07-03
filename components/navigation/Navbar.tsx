@@ -34,7 +34,7 @@ export const Navbar = () => {
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      const offset = 80; // Hauteur de la navbar
+      const offset = 80;
       const sectionTop = section.offsetTop - offset;
       
       window.scrollTo({
@@ -60,18 +60,22 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg"
+          ? "bg-[#E6F3F9]/90 backdrop-blur-md shadow-[0_4px_20px_-1px_rgba(179,211,224,0.3)]"
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <button
             onClick={() => scrollToSection("home")}
-            className="text-2xl font-bold gradient-text"
+            className="flex items-center gap-2 text-2xl font-bold"
           >
-            Nouha Derwiche
+            <img 
+              src="/logo.png" 
+              alt="Logo Nouha Derwiche" 
+              className="h-16 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,153,204,0.3)]" 
+            />
           </button>
 
           {/* Desktop Navigation */}
@@ -80,8 +84,10 @@ export const Navbar = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`text-gray-700 dark:text-gray-200 hover:text-primary transition-colors ${
-                  activeSection === item.id ? "text-primary font-semibold" : ""
+                className={`text-[#2A7BA1] hover:text-[#0099cc] transition-colors relative ${
+                  activeSection === item.id 
+                    ? "font-semibold after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-[#0099cc] after:bg-gradient-to-r after:from-[#79C7E3] after:to-[#0099cc]" 
+                    : ""
                 }`}
               >
                 {item.name}
@@ -91,7 +97,7 @@ export const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700 dark:text-gray-200"
+            className="md:hidden text-[#2A7BA1] hover:text-[#0099cc] transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <svg
@@ -120,15 +126,15 @@ export const Navbar = () => {
             height: isMobileMenuOpen ? "auto" : 0,
           }}
           transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden"
+          className="md:hidden overflow-hidden bg-[#E6F3F9]/95 backdrop-blur-md rounded-b-lg shadow-[0_4px_20px_-1px_rgba(179,211,224,0.3)]"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-primary transition-colors ${
-                  activeSection === item.id ? "text-primary font-semibold" : ""
+                className={`block w-full text-left px-3 py-2 text-[#2A7BA1] hover:text-[#0099cc] transition-colors ${
+                  activeSection === item.id ? "font-semibold bg-[#D5EAF2]" : ""
                 }`}
               >
                 {item.name}
@@ -140,7 +146,7 @@ export const Navbar = () => {
 
       {/* Progress Bar */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary to-secondary"
+        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#79C7E3] to-[#0099cc]"
         initial={{ width: "0%" }}
         animate={{ width: isScrolled ? "100%" : "0%" }}
         transition={{ duration: 0.3 }}
