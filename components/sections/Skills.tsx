@@ -1,90 +1,139 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from 'next/image';
 
-interface Skill {
-  category: string;
-  items: Array<{
-    name: string;
-    percentage: number;
-    logo: string;
-  }>;
-  icon: string;
-}
-
-const skills: Skill[] = [
+const skills = [
   {
+    name: "Next.js",
+    icon: "https://cdn.worldvectorlogo.com/logos/nextjs-2.svg",
     category: "Frontend",
-    items: [
-      { name: "HTML5 / CSS3", percentage: 90, logo: "/skills/html-css.svg" },
-      { name: "JavaScript / TypeScript", percentage: 85, logo: "/skills/typescript.svg" },
-      { name: "React.js", percentage: 85, logo: "/skills/react.svg" },
-      { name: "Next.js", percentage: 80, logo: "/skills/nextjs.svg" },
-      { name: "Tailwind CSS", percentage: 90, logo: "/skills/tailwind.svg" }
-    ],
-    icon: "🎨",
+    percentage: 90,
+    color: "#008090"
   },
   {
+    name: "Nuxt.js",
+    icon: "/nuxt-js-logo.png",
+    category: "Frontend",
+    percentage: 85,
+    color: "#008090"
+  },
+  {
+    name: "Laravel",
+    icon: "https://laravel.com/img/logomark.min.svg",
     category: "Backend",
-    items: [
-      { name: "Node.js", percentage: 80, logo: "/skills/nodejs.svg" },
-      { name: "Express.js", percentage: 75, logo: "/skills/express.svg" },
-      { name: "API REST", percentage: 85, logo: "/skills/api.svg" },
-      { name: "MongoDB", percentage: 75, logo: "/skills/mongodb.svg" }
-    ],
-    icon: "⚙️",
+    percentage: 88,
+    color: "#008090"
+  },
+
+  {
+    name: "Python",
+    icon: "https://www.python.org/static/community_logos/python-logo-generic.svg",
+    category: "Backend",
+    percentage: 80,
+    color: "#008090"
   },
   {
-    category: "Outils",
-    items: [
-      { name: "Git", percentage: 85, logo: "/skills/git.svg" },
-      { name: "GitHub", percentage: 85, logo: "/skills/github.svg" },
-      { name: "VS Code", percentage: 90, logo: "/skills/vscode.svg" },
-      { name: "Figma", percentage: 75, logo: "/skills/figma.svg" }
-    ],
-    icon: "🛠️",
+    name: "TypeScript",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg",
+    category: "Frontend",
+    percentage: 92,
+    color: "#008090"
   },
+  {
+    name: "JavaScript",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
+    category: "Frontend",
+    percentage: 95,
+    color: "#008090"
+  },
+  {
+    name: "HTML5",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg",
+    category: "Frontend",
+    percentage: 98,
+    color: "#008090"
+  },
+  {
+    name: "CSS3",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg",
+    category: "Frontend",
+    percentage: 95,
+    color: "#008090"
+  },
+  {
+    name: "GraphQL",
+    icon: "/Untitled.png",
+    category: "Backend",
+    percentage: 75,
+    color: "#E10098"
+  },
+  {
+    name: "Arduino",
+    icon: "/images.png",
+    category: "Hardware",
+    percentage: 70,
+    color: "#008090"
+  },
+  {
+    name: "MongoDB",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg",
+    category: "Database",
+    percentage: 85,
+    color: "#008090"
+  },
+  {
+    name: "MySQL",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg",
+    category: "Database",
+    percentage: 80,
+    color: "#008090"
+  },
+  {
+    name: "PostgreSQL",
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg",
+    category: "Database",
+    percentage: 75,
+    color: "#008090"
+  }
 ];
 
 // Floating animation for technology logos
 const FloatingLogos = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {skills.flatMap((category) => 
-        category.items.map((item, index) => (
-          <motion.div
-            key={`${category.category}-${item.name}`}
-            className="absolute w-8 h-8 opacity-20"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: [0.2, 0.5, 0.2],
-              scale: [1, 1.2, 1],
-              x: ["0%", "100%", "0%"],
-              y: ["0%", "-50%", "0%"],
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              delay: index * 0.3,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          >
-            <Image
-              src={item.logo}
-              alt={item.name}
-              width={32}
-              height={32}
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
-        ))
-      )}
+      {skills.map((skill, index) => (
+        <motion.div
+          key={skill.name}
+          className="absolute w-8 h-8 opacity-20"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0.2, 0.5, 0.2],
+            scale: [1, 1.2, 1],
+            x: ["0%", "100%", "0%"],
+            y: ["0%", "-50%", "0%"],
+          }}
+          transition={{
+            duration: Math.random() * 5 + 5,
+            delay: index * 0.3,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+        >
+          <Image
+            src={skill.icon}
+            alt={skill.name}
+            width={32}
+            height={32}
+            className="w-full h-full object-contain"
+          />
+        </motion.div>
+      ))}
     </div>
   );
 };
@@ -131,7 +180,7 @@ const SkillCircle = ({ percentage, logo, name, delay }: { percentage: number; lo
   );
 };
 
-const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
+const SkillCard = ({ skill, index }: { skill: { name: string; icon: string; category: string; percentage: number; color: string }; index: number }) => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true });
@@ -171,23 +220,22 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="text-3xl mb-2"
         >
-          {skill.icon}
+          <img src={skill.icon} alt={skill.name} width={40} height={40} className="w-10 h-10 object-contain drop-shadow" />
         </motion.div>
         <h3 className="text-lg font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
-          {skill.category}
+          {skill.name}
         </h3>
         <div className="space-y-5">
-          {skill.items.map((item, i) => (
-            <div key={i} className="flex items-center gap-4">
-              <SkillCircle
-                percentage={item.percentage}
-                logo={item.logo}
-                name={item.name}
-                delay={0.2 * i}
-              />
-              <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">{item.name}</span>
-            </div>
-          ))}
+          <div className="flex items-center gap-4">
+            <SkillCircle
+              percentage={skill.percentage}
+              logo={skill.icon}
+              name={skill.name}
+              delay={0.2}
+            />
+            <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">{skill.name}</span>
+          </div>
+          <div className="text-xs text-blue-500 font-medium mt-1">{skill.category}</div>
         </div>
       </motion.div>
     </motion.div>
@@ -197,11 +245,22 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
 export const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Flatten all skills into a single array with category info
-  const allSkills = skills.flatMap((cat) =>
-    cat.items.map((item) => ({ ...item, category: cat.category, icon: cat.icon }))
-  );
+  // Group skills into sets of 3
+  const skillGroups = [];
+  for (let i = 0; i < skills.length; i += 3) {
+    skillGroups.push(skills.slice(i, i + 3));
+  }
+
+  // Auto-advance slider every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % skillGroups.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [skillGroups.length]);
 
   return (
     <section ref={ref} id="skills" className="py-20 relative overflow-hidden">
@@ -309,31 +368,189 @@ export const Skills = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto rounded-full" />
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {allSkills.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 32px 0 rgba(59,130,246,0.15)" }}
-              className="flex flex-col items-center justify-center bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-lg border border-blue-100 backdrop-blur-md p-6 transition-all duration-200 ease-out hover:shadow-xl"
-            >
-              <div className="mb-2">
-                <img src={skill.logo} alt={skill.name} className="w-10 h-10 object-contain drop-shadow" />
-              </div>
-              <SkillCircle
-                percentage={skill.percentage}
-                logo={skill.logo}
-                name={skill.name}
-                delay={0.1 * i}
+
+        {/* 3D Skills Slider */}
+        <div className="relative h-96 flex items-center justify-center">
+          {/* SVG Gradient Definition */}
+          <svg width="0" height="0" className="absolute">
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="100%" stopColor="#1d4ed8" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div className="relative w-full max-w-4xl h-full perspective-1000">
+            {skillGroups.map((group, groupIndex) => (
+              <motion.div
+                key={groupIndex}
+                className="absolute inset-0 flex items-center justify-center gap-8"
+                initial={{ opacity: 0, rotateY: 90, scale: 0.8 }}
+                animate={{
+                  opacity: currentSlide === groupIndex ? 1 : 0,
+                  rotateY: currentSlide === groupIndex ? 0 : 90,
+                  scale: currentSlide === groupIndex ? 1 : 0.8,
+                  z: currentSlide === groupIndex ? 0 : -1000,
+                }}
+                transition={{
+                  duration: 0.8,
+                  ease: "easeInOut",
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                {group.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    className="relative"
+                    initial={{ opacity: 0, y: 50, rotateY: -30 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      rotateY: 0,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      delay: skillIndex * 0.2,
+                      ease: "easeOut",
+                    }}
+                    whileHover={{
+                      scale: 1.1,
+                      rotateY: 15,
+                      z: 50,
+                    }}
+                    style={{
+                      transformStyle: "preserve-3d",
+                    }}
+                  >
+                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-blue-200/50 dark:border-blue-700/50 w-64 h-80 flex flex-col items-center justify-center relative overflow-hidden">
+                      {/* 3D Card Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-900/20 rounded-2xl" />
+                      
+                      {/* Skill Icon with 3D Animation */}
+                      <motion.div
+                        className="mb-6 relative"
+                        animate={{
+                          rotateY: [0, 10, 0],
+                          rotateX: [0, 5, 0],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
+                          <img 
+                            src={skill.icon} 
+                            alt={skill.name} 
+                            className="w-12 h-12 object-contain drop-shadow-lg" 
+                          />
+                        </div>
+                      </motion.div>
+
+                      {/* Skill Name */}
+                      <h3 className="text-xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600">
+                        {skill.name}
+                      </h3>
+
+                      {/* Category */}
+                      <div className="text-sm text-blue-500 font-medium mb-4 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 rounded-full">
+                        {skill.category}
+                      </div>
+
+                      {/* Progress Circle */}
+                      <div className="relative w-24 h-24 mb-4">
+                        <svg width="96" height="96" className="transform -rotate-90">
+                          <circle
+                            cx="48"
+                            cy="48"
+                            r="36"
+                            stroke="#e5e7eb"
+                            strokeWidth="8"
+                            fill="none"
+                          />
+                          <motion.circle
+                            cx="48"
+                            cy="48"
+                            r="36"
+                            stroke="url(#gradient)"
+                            strokeWidth="8"
+                            fill="none"
+                            strokeDasharray={226}
+                            strokeDashoffset={226}
+                            initial={{ strokeDashoffset: 226 }}
+                            animate={{ strokeDashoffset: 226 - (226 * skill.percentage) / 100 }}
+                            transition={{ duration: 1.5, delay: 0.5 }}
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                            {skill.percentage}%
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Floating elements */}
+                      <motion.div
+                        className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full"
+                        animate={{
+                          y: [0, -10, 0],
+                          opacity: [0.5, 1, 0.5],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                      <motion.div
+                        className="absolute bottom-4 left-4 w-1 h-1 bg-blue-300 rounded-full"
+                        animate={{
+                          scale: [1, 1.5, 1],
+                          opacity: [0.3, 0.8, 0.3],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Navigation Dots */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            {skillGroups.map((_, index) => (
+              <motion.button
+                key={index}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  currentSlide === index 
+                    ? 'bg-blue-600 scale-125' 
+                    : 'bg-blue-300 hover:bg-blue-400'
+                }`}
+                onClick={() => setCurrentSlide(index)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
               />
-              <div className="mt-3 text-center">
-                <div className="text-base font-semibold text-gray-800 dark:text-gray-200">{skill.name}</div>
-                <div className="text-xs text-blue-500 font-medium mt-1">{skill.category}</div>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
+
+          {/* Progress Bar */}
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-64 h-1 bg-blue-200 dark:bg-blue-800 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
+              initial={{ width: "0%" }}
+              animate={{ width: `${((currentSlide + 1) / skillGroups.length) * 100}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
         </div>
       </div>
     </section>
