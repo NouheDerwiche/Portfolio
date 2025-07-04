@@ -161,7 +161,7 @@ export const Hero = () => {
               {/* Photo Container */}
               <div className="absolute inset-3 rounded-xl overflow-hidden bg-gradient-to-br from-[#E6F3F9] to-[#F0F7FB]">
                 <img
-                  src="/profile-photo.jpg"
+                  src="/hobi.png"
                   alt="Nouhe Derwiche"
                   className="w-full h-full object-cover object-center"
                 />

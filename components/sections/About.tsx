@@ -264,7 +264,7 @@ export const About = () => {
               <div className="grid grid-cols-2 gap-6 mt-12">
                 {[
                   { number: "1+", label: "Année d'expérience" },
-                  { number: "7+", label: "Projets Réalisés" },
+                  { number: "4+", label: "Projets Réalisés" },
                   { number: "5+", label: "Technologies Maîtrisées" },
                   { number: "100%", label: "Satisfaction Client" },
                 ].map((stat, index) => (
