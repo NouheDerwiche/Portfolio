@@ -4,10 +4,34 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from 'next/image';
 
+// Hook pour détecter la taille de l'écran
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  return windowSize;
+};
+
 const skills = [
   {
     name: "Next.js",
-    icon: "https://cdn.worldvectorlogo.com/logos/nextjs-2.svg",
+    icon: "/skills/nextjs.svg",
     category: "Frontend",
     percentage: 90,
     color: "#008090"
@@ -26,7 +50,6 @@ const skills = [
     percentage: 88,
     color: "#008090"
   },
-
   {
     name: "Python",
     icon: "https://www.python.org/static/community_logos/python-logo-generic.svg",
@@ -36,7 +59,7 @@ const skills = [
   },
   {
     name: "TypeScript",
-    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg",
+    icon: "/skills/typescript.svg",
     category: "Frontend",
     percentage: 92,
     color: "#008090"
@@ -50,14 +73,14 @@ const skills = [
   },
   {
     name: "HTML5",
-    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg",
+    icon: "/skills/html-css.svg",
     category: "Frontend",
     percentage: 98,
     color: "#008090"
   },
   {
     name: "CSS3",
-    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg",
+    icon: "/skills/html-css.svg",
     category: "Frontend",
     percentage: 95,
     color: "#008090"
@@ -78,7 +101,7 @@ const skills = [
   },
   {
     name: "MongoDB",
-    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg",
+    icon: "/skills/mongodb.svg",
     category: "Database",
     percentage: 85,
     color: "#008090"
@@ -131,6 +154,7 @@ const FloatingLogos = () => {
             width={32}
             height={32}
             className="w-full h-full object-contain"
+            unoptimized={skill.icon.startsWith('http')}
           />
         </motion.div>
       ))}
@@ -138,119 +162,18 @@ const FloatingLogos = () => {
   );
 };
 
-// Animated circular percentage indicator
-const SkillCircle = ({ percentage, logo, name, delay }: { percentage: number; logo: string; name: string; delay: number }) => {
-  const circleRef = useRef(null);
-  const isInView = useInView(circleRef, { once: true });
-  const size = 80;
-  const stroke = 8;
-  const radius = (size - stroke) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const progress = isInView ? percentage : 0;
-
-  return (
-    <div ref={circleRef} className="relative flex items-center justify-center w-20 h-20">
-      <svg width={size} height={size} className="absolute top-0 left-0">
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="#e5e7eb"
-          strokeWidth={stroke}
-          fill="none"
-        />
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="#3b82f6"
-          strokeWidth={stroke}
-          fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference}
-          animate={{ strokeDashoffset: circumference * (1 - progress / 100) }}
-          transition={{ duration: 1, delay, ease: "easeOut" }}
-          strokeLinecap="round"
-        />
-      </svg>
-      <div className="absolute flex items-center justify-center w-full h-full">
-        <span className="text-lg font-semibold text-blue-500">{percentage}%</span>
-      </div>
-    </div>
-  );
-};
-
-const SkillCard = ({ skill, index }: { skill: { name: string; icon: string; category: string; percentage: number; color: string }; index: number }) => {
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 15;
-    const rotateY = (centerX - x) / 15;
-    setRotate({ x: rotateX, y: rotateY });
-  };
-  const handleMouseLeave = () => setRotate({ x: 0, y: 0 });
-
-  return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="relative group"
-    >
-      <motion.div
-        style={{
-          transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="relative bg-white/80 dark:bg-gray-800/80 p-7 rounded-xl shadow-lg border border-blue-100 backdrop-blur-md transition-all duration-200 ease-out"
-      >
-        <motion.div
-          initial={{ scale: 1 }}
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="text-3xl mb-2"
-        >
-          <img src={skill.icon} alt={skill.name} width={40} height={40} className="w-10 h-10 object-contain drop-shadow" />
-        </motion.div>
-        <h3 className="text-lg font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
-          {skill.name}
-        </h3>
-        <div className="space-y-5">
-          <div className="flex items-center gap-4">
-            <SkillCircle
-              percentage={skill.percentage}
-              logo={skill.icon}
-              name={skill.name}
-              delay={0.2}
-            />
-            <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">{skill.name}</span>
-          </div>
-          <div className="text-xs text-blue-500 font-medium mt-1">{skill.category}</div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
 export const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { width } = useWindowSize();
+  const isMobile = width < 768; // Breakpoint pour mobile
 
-  // Group skills into sets of 3
+  // Group skills into sets based on screen size
+  const cardsPerGroup = isMobile ? 1 : 3;
   const skillGroups = [];
-  for (let i = 0; i < skills.length; i += 3) {
-    skillGroups.push(skills.slice(i, i + 3));
+  for (let i = 0; i < skills.length; i += cardsPerGroup) {
+    skillGroups.push(skills.slice(i, i + cardsPerGroup));
   }
 
   // Auto-advance slider every 5 seconds
@@ -261,6 +184,11 @@ export const Skills = () => {
 
     return () => clearInterval(interval);
   }, [skillGroups.length]);
+
+  // Reset current slide when screen size changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [isMobile]);
 
   return (
     <section ref={ref} id="skills" className="py-20 relative overflow-hidden">
@@ -384,7 +312,7 @@ export const Skills = () => {
             {skillGroups.map((group, groupIndex) => (
               <motion.div
                 key={groupIndex}
-                className="absolute inset-0 flex items-center justify-center gap-8"
+                className="absolute inset-0 flex items-center justify-center gap-4 md:gap-8"
                 initial={{ opacity: 0, rotateY: 90, scale: 0.8 }}
                 animate={{
                   opacity: currentSlide === groupIndex ? 1 : 0,
@@ -424,13 +352,13 @@ export const Skills = () => {
                       transformStyle: "preserve-3d",
                     }}
                   >
-                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-blue-200/50 dark:border-blue-700/50 w-64 h-80 flex flex-col items-center justify-center relative overflow-hidden">
+                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl p-6 md:p-8 shadow-2xl border border-blue-200/50 dark:border-blue-700/50 w-56 md:w-64 h-72 md:h-80 flex flex-col items-center justify-center relative overflow-hidden">
                       {/* 3D Card Effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-900/20 rounded-2xl" />
                       
                       {/* Skill Icon with 3D Animation */}
                       <motion.div
-                        className="mb-6 relative"
+                        className="mb-4 md:mb-6 relative"
                         animate={{
                           rotateY: [0, 10, 0],
                           rotateX: [0, 5, 0],
@@ -441,53 +369,56 @@ export const Skills = () => {
                           ease: "easeInOut",
                         }}
                       >
-                        <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
-                          <img 
+                        <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
+                          <Image 
                             src={skill.icon} 
                             alt={skill.name} 
-                            className="w-12 h-12 object-contain drop-shadow-lg" 
+                            width={48}
+                            height={48}
+                            className="w-10 h-10 md:w-12 md:h-12 object-contain drop-shadow-lg" 
+                            unoptimized={skill.icon.startsWith('http')}
                           />
                         </div>
                       </motion.div>
 
                       {/* Skill Name */}
-                      <h3 className="text-xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600">
+                      <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 text-center">
                         {skill.name}
                       </h3>
 
                       {/* Category */}
-                      <div className="text-sm text-blue-500 font-medium mb-4 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 rounded-full">
+                      <div className="text-xs md:text-sm text-blue-500 font-medium mb-3 md:mb-4 px-2 md:px-3 py-1 bg-blue-50 dark:bg-blue-900/30 rounded-full">
                         {skill.category}
                       </div>
 
                       {/* Progress Circle */}
-                      <div className="relative w-24 h-24 mb-4">
-                        <svg width="96" height="96" className="transform -rotate-90">
+                      <div className="relative w-20 h-20 md:w-24 md:h-24 mb-3 md:mb-4">
+                        <svg width={isMobile ? "80" : "96"} height={isMobile ? "80" : "96"} className="transform -rotate-90">
                           <circle
-                            cx="48"
-                            cy="48"
-                            r="36"
+                            cx={isMobile ? "40" : "48"}
+                            cy={isMobile ? "40" : "48"}
+                            r={isMobile ? "28" : "36"}
                             stroke="#e5e7eb"
                             strokeWidth="8"
                             fill="none"
                           />
                           <motion.circle
-                            cx="48"
-                            cy="48"
-                            r="36"
+                            cx={isMobile ? "40" : "48"}
+                            cy={isMobile ? "40" : "48"}
+                            r={isMobile ? "28" : "36"}
                             stroke="url(#gradient)"
                             strokeWidth="8"
                             fill="none"
-                            strokeDasharray={226}
-                            strokeDashoffset={226}
-                            initial={{ strokeDashoffset: 226 }}
-                            animate={{ strokeDashoffset: 226 - (226 * skill.percentage) / 100 }}
+                            strokeDasharray={isMobile ? 176 : 226}
+                            strokeDashoffset={isMobile ? 176 : 226}
+                            initial={{ strokeDashoffset: isMobile ? 176 : 226 }}
+                            animate={{ strokeDashoffset: isMobile ? 176 - (176 * skill.percentage) / 100 : 226 - (226 * skill.percentage) / 100 }}
                             transition={{ duration: 1.5, delay: 0.5 }}
                             strokeLinecap="round"
                           />
                         </svg>
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                          <span className="text-sm md:text-lg font-bold text-blue-600 dark:text-blue-400">
                             {skill.percentage}%
                           </span>
                         </div>
@@ -526,11 +457,11 @@ export const Skills = () => {
           </div>
 
           {/* Navigation Dots */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3">
             {skillGroups.map((_, index) => (
               <motion.button
                 key={index}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
                   currentSlide === index 
                     ? 'bg-blue-600 scale-125' 
                     : 'bg-blue-300 hover:bg-blue-400'
@@ -543,7 +474,7 @@ export const Skills = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-64 h-1 bg-blue-200 dark:bg-blue-800 rounded-full overflow-hidden">
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-48 md:w-64 h-1 bg-blue-200 dark:bg-blue-800 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
               initial={{ width: "0%" }}

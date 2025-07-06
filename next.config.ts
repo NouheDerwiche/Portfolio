@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
       'techicons.dev',
       'img.icons8.com',
       'upload.wikimedia.org',
+      'cdn.worldvectorlogo.com',
+      'laravel.com',
+      'www.python.org',
+      'raw.githubusercontent.com',
     ],
   },
 };

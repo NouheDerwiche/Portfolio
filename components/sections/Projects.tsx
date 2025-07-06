@@ -31,7 +31,7 @@ const projects: Project[] = [
   },
   {
     title: "Siry.svrap.tn - Gestion d'inventaires et livraisons",
-    description: "Maintenance de la plateforme siry.svrap.tn et développement d'une application web de gestion d'inventaires et des livraisons, permettant la prise en charge et le suivi des commandes effectuées via la plateforme.",
+    description: "Maintenance de la plateforme siry.svrap.tn et développement d'une application web de gestion d'inventaires et des livraisons.",
     image: "/siry.png",
     tags: ["Laravel", "Next.js", "Prisma", "API REST", "Tailwind", "PostgreSQL", "TypeScript", "Hooks"],
     demoLink: "https://siry.svrapp.tn",
@@ -111,11 +111,7 @@ export const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  // Créer des groupes de 3 projets pour le slider
-  const projectGroups = [];
-  for (let i = 0; i < projects.length; i += 3) {
-    projectGroups.push(projects.slice(i, i + 3));
-  }
+  // Pas besoin de groupes, on utilise directement les projets individuels
 
   return (
     <section ref={ref} id="projects" className="py-20 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm relative overflow-hidden">
@@ -146,15 +142,20 @@ export const Projects = () => {
             pauseOnMouseEnter: true
           }}
           spaceBetween={30}
+          slidesPerView={1}
+          breakpoints={{
+            768: {
+              slidesPerView: 3,
+            },
+            1024: {
+              slidesPerView: 3,
+            }
+          }}
           className="project-slider"
         >
-          {projectGroups.map((group, groupIndex) => (
-            <SwiperSlide key={groupIndex}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {group.map((project, index) => (
-                  <ProjectCard key={index} project={project} index={index} />
-                ))}
-              </div>
+          {projects.map((project, index) => (
+            <SwiperSlide key={index}>
+              <ProjectCard project={project} index={index} />
             </SwiperSlide>
           ))}
         </Swiper>

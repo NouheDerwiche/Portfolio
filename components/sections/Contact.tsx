@@ -1,13 +1,12 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,13 +17,6 @@ export const Contact = () => {
     type: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -61,7 +53,7 @@ export const Contact = () => {
       }
     } catch {
       setStatus({
-        message: 'Erreur lors de l\'envoi du message. Veuillez réessayer.',
+        message: 'Erreur lors de l&apos;envoi du message. Veuillez réessayer.',
         type: 'error'
       });
     } finally {
@@ -273,7 +265,7 @@ export const Contact = () => {
                   Autres moyens de me contacter
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-8">
-                  Vous préférez une approche différente ? Voici d'autres façons de me joindre.
+                  Vous préférez une approche différente ? Voici d&apos;autres façons de me joindre.
                 </p>
               </div>
 
@@ -349,10 +341,10 @@ export const Contact = () => {
               {/* Additional Info */}
               <div className="mt-8 p-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl border border-blue-200/50 dark:border-blue-700/50">
                 <h4 className="font-semibold text-gray-800 dark:text-white mb-3">
-                  💡 Besoin d'aide ?
+                  💡 Besoin d&apos;aide ?
                 </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Je réponds généralement dans les 24h. N'hésitez pas à me décrire votre projet en détail pour que je puisse mieux vous accompagner.
+                  Je réponds généralement dans les 24h. N&apos;hésitez pas à me décrire votre projet en détail pour que je puisse mieux vous accompagner.
                 </p>
               </div>
             </div>
