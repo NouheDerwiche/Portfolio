@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { useEffect, useState, Suspense } from "react";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { DevObjects } from "../3d/DevObjects";
-import { OrbitControls } from "@react-three/drei";
+import Image from "next/image";
 import type { Variants } from "framer-motion";
 
 const titleAnimation: Variants = {
@@ -21,56 +21,9 @@ const titleAnimation: Variants = {
   },
 };
 
-const letterAnimation: Variants = {
-  hidden: { 
-    opacity: 0,
-    y: 50,
-    scale: 0.5
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      damping: 12,
-      stiffness: 200,
-      repeat: 0,
-      repeatDelay: 5,
-    } as const,
-  },
-};
-
 export const Hero = () => {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const titleText = "Développeuse Web";
   const nameText = "Nouhe Derwiche";
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <section id="home" className="min-h-screen relative overflow-hidden">
@@ -96,13 +49,13 @@ export const Hero = () => {
               variants={titleAnimation}
               initial="hidden"
               animate="visible"
-              className="space-y-4"
+              className="space-y-2 mb-4"
             >
-              <motion.h2 className="text-5xl lg:text-7xl font-bold font-serif bg-clip-text text-transparent bg-gradient-to-r from-[#2A7BA1] to-[#79C7E3]">
+              <motion.h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold font-serif bg-clip-text text-transparent bg-gradient-to-r from-[#2A7BA1] to-[#79C7E3]">
                 {nameText}
               </motion.h2>
 
-              <motion.h1 className="text-3xl lg:text-5xl font-bold font-sans bg-clip-text text-transparent bg-gradient-to-r from-[#0099cc] to-[#79C7E3]">
+              <motion.h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold font-sans bg-clip-text text-transparent bg-gradient-to-r from-[#0099cc] to-[#79C7E3]">
                 {titleText}
               </motion.h1>
             </motion.div>
@@ -111,7 +64,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-xl text-[#2A7BA1] max-w-2xl"
+              className="text-base sm:text-xl text-[#2A7BA1] max-w-2xl mb-6"
             >
               Développeuse web passionnée, je conçois des interfaces modernes, performantes et accessibles. Mon objectif : transformer vos idées en solutions digitales uniques, intuitives et engageantes.
             </motion.p>
@@ -120,7 +73,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex gap-4"
+              className="flex flex-col sm:flex-row gap-4 mb-2"
             >
               <Button
                 asChild
@@ -160,9 +113,11 @@ export const Hero = () => {
 
               {/* Photo Container */}
               <div className="absolute inset-3 rounded-xl overflow-hidden bg-gradient-to-br from-[#E6F3F9] to-[#F0F7FB]">
-                <img
+                <Image
                   src="/hobi.png"
                   alt="Nouhe Derwiche"
+                  width={400}
+                  height={300}
                   className="w-full h-full object-cover object-center"
                 />
                 

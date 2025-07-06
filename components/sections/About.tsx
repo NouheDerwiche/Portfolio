@@ -129,27 +129,7 @@ const CodeTraces = () => {
         </motion.div>
       ))}
 
-      {/* Terminal Commands */}
-      <div className="absolute bottom-20 left-10 right-10">
-        {['npm install', 'git commit', 'yarn build'].map((cmd, i) => (
-          <motion.div
-            key={`cmd-${i}`}
-            className="text-sm font-mono text-green-500/30"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{
-              opacity: [0, 1, 1, 0],
-              x: [-20, 0, 0, 20]
-            }}
-            transition={{
-              duration: 4,
-              delay: i * 1.5,
-              repeat: Infinity
-            }}
-          >
-            $ {cmd}
-          </motion.div>
-        ))}
-      </div>
+ 
 
       {/* Network Packets */}
       {[...Array(5)].map((_, i) => (
@@ -182,27 +162,6 @@ export const About = () => {
   const ref = useRef(null);
   const containerRef = useRef(null);
   const isInView = useInView(ref, { once: true });
-
-  const floatingElements = [
-    // Technologies Front-end
-    { content: "</>", delay: 0, className: "text-blue-500 font-mono" },
-    { content: "⚛️", delay: 0.2, className: "text-blue-600" }, // React
-    { content: "JS", delay: 0.4, className: "text-yellow-500 font-bold" },
-    // Technologies Back-end
-    { content: "🗄️", delay: 0.6, className: "" }, // Database
-    { content: "API", delay: 0.8, className: "text-green-500 font-mono" },
-    // Outils
-    { content: "Git", delay: 1, className: "text-orange-500 font-mono" },
-    // Design
-    { content: "CSS", delay: 1.2, className: "text-blue-400 font-mono" },
-    { content: "UI/UX", delay: 1.4, className: "text-purple-500 font-mono" },
-    // Code symbols
-    { content: "{}", delay: 1.6, className: "text-gray-600 font-mono" },
-    { content: "( )", delay: 1.8, className: "text-gray-600 font-mono" },
-    // Frameworks
-    { content: "Next", delay: 2, className: "text-black font-bold dark:text-white" },
-    { content: "Node", delay: 2.2, className: "text-green-600 font-mono" }
-  ];
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -252,7 +211,7 @@ export const About = () => {
                 className="space-y-6"
               >
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Développeuse Web avec un an d'expérience, je crée des applications web fiables et performantes. Autonome, rigoureuse et animée par la curiosité, je souhaite participer à des projets innovants tout en continuant à évoluer dans un environnement stimulant.
+                  Développeuse Web avec un an d&apos;expérience, je crée des applications web fiables et performantes. Autonome, rigoureuse et animée par la curiosité, je souhaite participer à des projets innovants tout en continuant à évoluer dans un environnement stimulant.
                 </p>
                 <p className="text-xl text-gray-700 leading-relaxed">
                   Mon objectif est de créer des expériences utilisateur exceptionnelles

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -71,9 +72,11 @@ export const Navbar = () => {
             onClick={() => scrollToSection("home")}
             className="flex items-center gap-2 text-2xl font-bold"
           >
-            <img 
+            <Image 
               src="/logo.png" 
               alt="Logo Nouha Derwiche" 
+              width={64}
+              height={64}
               className="h-16 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,153,204,0.3)]" 
             />
           </button>
