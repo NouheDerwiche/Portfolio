@@ -77,7 +77,15 @@ const projects = [
 },
 ];
 
-const ProjectCard = ({ project }: any) => {
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  demoLink: string;
+};
+
+const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.22 }} className="h-full">
       <div className="project-card group">

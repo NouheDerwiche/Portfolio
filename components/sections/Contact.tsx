@@ -521,7 +521,7 @@ export const Contact = () => {
             >
               <h3 className="info-title">Autres moyens de me contacter</h3>
               <p className="info-subtitle">
-                Vous préférez une approche directe ? Voici d'autres façons de me joindre.
+                Vous préférez une approche directe ? Voici d&apos;autres façons de me joindre.
               </p>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
@@ -581,7 +581,7 @@ export const Contact = () => {
                   Disponible pour de nouveaux projets
                 </div>
                 <p className="availability-text">
-                  Je réponds généralement dans les 24h. N'hésitez pas à décrire votre projet en détail pour que je puisse mieux vous accompagner.
+                  Je réponds généralement dans les 24h. N&apos;hésitez pas à décrire votre projet en détail pour que je puisse mieux vous accompagner.
                 </p>
               </div>
             </motion.div>
