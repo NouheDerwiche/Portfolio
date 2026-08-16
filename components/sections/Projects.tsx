@@ -64,7 +64,7 @@ const projects = [
   {
     title: "SiryRH",
     description: "Plateforme de gestion RH et livraison de commandes pour distribution cosmétique.",
-    image: "/SiryRH.png",
+    image: "/siryrh.png",
     tags: ["Next.js", "PostgreSQL", "Logistics"],
     demoLink: "https://siryrh.svrapp.tn",
   },
