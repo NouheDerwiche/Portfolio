@@ -39,13 +39,7 @@ const projects = [
     tags: ["Laravel", "Tailwind", "MySQL"],
     demoLink: "https://saphir.demos.tn",
   },
-  {
-    title: "Watan Training",
-    description: "Plateforme de formation en ligne avec certification et suivi de progression.",
-    image: "/watan.png",
-    tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    demoLink: "https://www.watantraining.us",
-  },
+
   {
     title: "2N Solution",
     description: "Plateforme de recrutement intelligent avec coaching IA et meeting intégré.",
@@ -61,19 +55,27 @@ const projects = [
     tags: ["Next.js", "Amadeus API", "Prisma", "PostgreSQL"],
     demoLink: "https://amaway.4prod.tn",
   },
-  {
-    title: "SiryRH",
-    description: "Plateforme de gestion RH et livraison de commandes pour distribution cosmétique.",
-    image: "/siryrh.png",
-    tags: ["Next.js", "PostgreSQL", "Logistics"],
-    demoLink: "https://siryrh.svrapp.tn",
-  },
+ 
  {
   title: "MOST SVR",
   description: "Solution de gestion d’inventaire et de suivi des stocks pour les produits SVR, Filorga et Filmed.",
   image: "/INVENTAIRE.png",
   tags: ["Laravel", "PostgreSQL", "Logistics"],
   demoLink: "https://most.svrapp.tn/",
+},
+{
+  title: "Watan Training",
+  description: "Plateforme de formation en ligne avec certification et suivi de progression.",
+  image: "/watan.png",
+  tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+  demoLink: "https://www.watantraining.us",
+},
+{
+  title: "SiryRH",
+  description: "Plateforme de gestion RH et livraison de commandes pour distribution cosmétique.",
+  image: "/siryrh.png",
+  tags: ["Next.js", "PostgreSQL", "Logistics"],
+  demoLink: "https://siryrh.svrapp.tn",
 },
 ];
 
