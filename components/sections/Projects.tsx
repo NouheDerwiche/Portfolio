@@ -66,14 +66,14 @@ const projects = [
 {
   title: "Watan Training",
   description: "Plateforme de formation en ligne avec certification et suivi de progression.",
-  image: "/watan.png",
+  image: "/wa.png",
   tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
   demoLink: "https://www.watantraining.us",
 },
 {
   title: "SiryRH",
   description: "Plateforme de gestion RH et livraison de commandes pour distribution cosmétique.",
-  image: "/siryrh.png",
+  image: "/si.png",
   tags: ["Next.js", "PostgreSQL", "Logistics"],
   demoLink: "https://siryrh.svrapp.tn",
 },
