@@ -85,8 +85,8 @@ export const About = () => {
   const isInView = useInView(ref, { once: true });
 
   const stats = [
-    { number: "2+",   label: "Années d'expérience" },
-    { number: "5+",   label: "Projets Réalisés" },
+    { number: "3+",   label: "Années d'expérience" },
+    { number: "9+",   label: "Projets Réalisés" },
     { number: "5+",   label: "Technologies Maîtrisées" },
     { number: "100%", label: "Satisfaction Client" },
   ];
@@ -379,7 +379,7 @@ export const About = () => {
               transition={{ duration: 0.6 }}
             >
               <p className="ab-bio-primary">
-               Développeuse Full-Stack avec plus de 2 ans d’expérience dans la conception et le développement d’applications web
+               Développeuse Full-Stack avec plus de 3 ans d’expérience dans la conception et le développement d’applications web
 modernes. Passionnée par les nouvelles technologies, je conçois des solutions performantes, évolutives et centrées
 sur les besoins des utilisateurs.
               </p>

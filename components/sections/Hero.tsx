@@ -379,7 +379,7 @@ export const Hero = () => {
               {/* Stats strip */}
               <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" className="stats-strip">
                 <div className="stat-item">
-                  <span className="stat-num">2+</span>
+                  <span className="stat-num">3+</span>
                   <span className="stat-lbl">Années exp.</span>
                 </div>
                 <div className="stat-sep" />
@@ -402,12 +402,20 @@ export const Hero = () => {
                 animate="visible"
                 style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", paddingTop: "0.25rem" }}
               >
-                <Link href="/CV DN.pdf" download>
+                <Link href="/CVNDENG.pdf" download>
                   <span className="btn-primary">
                     <svg style={{ width: "0.875rem", height: "0.875rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
-                    Télécharger CV
+                     CV Anglais
+                  </span>
+                </Link>
+                 <Link href="/CVNDFR.pdf" download>
+                  <span className="btn-primary">
+                    <svg style={{ width: "0.875rem", height: "0.875rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    CV Français
                   </span>
                 </Link>
                 <Link href="#contact">
@@ -436,7 +444,7 @@ export const Hero = () => {
                 {/* Photo */}
                 <div className="photo-container">
                   <Image
-                    src="/noh.png"
+                    src="/nohnoh.png"
                     alt="Nouhe Derwiche"
                     fill
                     className="object-cover object-center"
